@@ -19,7 +19,7 @@ public class ColdBlogController {
     public ModelAndView getPosts(){
         ModelAndView mv = new ModelAndView("posts");
         List<Post> posts = coldBlogService.findAll();
-        mv.addObject("posts",posts);
+        mv.addObject("posts",posts); //Temos acesso aos Post do banco de dados
         return mv;
     }
 }

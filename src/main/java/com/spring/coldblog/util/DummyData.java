@@ -25,7 +25,15 @@ public class DummyData { //Populando o primeiro dado no banco
         post1.setTitulo("Primeiro Post");
         post1.setText("Vamos ver se essa budega está funcionando mesmo.");
 
+        Post post2 = new Post();
+        post2.setAutor("Ingride Barbosa");
+        post2.setData(LocalDate.now());
+        post2.setTitulo("Segundo Post");
+        post2.setText("Nossa LUTA se acentua e se aproxima do momento decisivo, onde a participação de TODOS é essencial!!!\n" +
+                "Faremos nessa terça-feira dia 08/09, mais um ato de convencimento e consciência de classe com nossos colegas, para que estes compreendam a necessidade \n" +
+                "de se JUNTAR imediatamente ao movimento paredista na defesa dos nossos direitos, da nossa empresa PÚBLICA e dos nossos empregos.");
         postList.add(post1);
+        postList.add(post2);
 
         for(Post post: postList){
             Post postSaved = coldBlogRepository.save(post);

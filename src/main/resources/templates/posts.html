@@ -1,10 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Posts</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-<h1>Aqui será exibido os posts </h1>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">ColdBlog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Início <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Posts</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Autores
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Saiba mais</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <section>
+        <div class="container" style="width: 60%; padding-bottom: 30px">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb" style="background-color: wrhite; padding-left: 0px">
+                    <li class="breadcrumb-item active" aria-current="page">Posts</li>
+                </ol>
+            </nav>
+            <div class="card shadow-sm bg-white rounded" style="margin-top:20px;" th:each="post : ${posts}"> <!-- Um for percorrendo a lista de posts, onde para cada post será criado um card-->
+                <div class="card-body">
+                    <p class="card-subtitle mb-2 text-muted" style="font-size:0.8rem;">
+                        <span th:text="${post.autor}"></span> <!-- Buscando no post a informação na coluna autor -->
+                        <span th:text="${post.data}"></span> <!-- Buscando no post a informação na coluna data -->
+                    </p>
+                    <a href="#">
+                        <h4 class="card-title" style="font-weight:bold; color:black;padding-top:5px;"><span th:text="${post.titulo}"></span></h4><!-- Buscando no post a informação na coluna titulo -->
+                    </a>
+                     <p class="card-text"><span th:utext="${#strings.abbreviate(post.text,40)}"></span></p> <!-- Buscando no post a informação na coluna texto, mas abreviando e mostrando apenas os 40 primeiros caracteres -->
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
