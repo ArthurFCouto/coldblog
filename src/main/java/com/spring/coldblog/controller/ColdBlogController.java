@@ -45,6 +45,7 @@ public class ColdBlogController {
     public String savePost(@Valid Post post, BindingResult result, RedirectAttributes attributes) //@Valid vai verificar se nossas validações (incluidas no model post) estão incluidas.
     {
         if (result.hasErrors()) {
+            attributes.addFlashAttribute("mensagem","Verifique se todos os campos obrigatórios (*) foram preenchidos!");
             return "redirect:/newpost";
         }
         post.setData(LocalDate.now());
