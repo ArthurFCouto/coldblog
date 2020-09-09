@@ -28,22 +28,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/posts">Posts</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Autores
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" th:each="post : ${posts}">
-                        <a class="dropdown-item" th:href="${(#mvc.url('CBC#getPostDetails').arg(0, post.id)).build()}"><span th:text="${post.autor}"></span></a>
-                        <div class="dropdown-divider"></div>
-                    </div>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="/posts" tabindex="-1" aria-disabled="true">Saiba mais</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>&nbsp;
+                <a href="/postdel" class="btn btn-primary" role="button">Delete</a>
             </form>
         </div>
     </nav>

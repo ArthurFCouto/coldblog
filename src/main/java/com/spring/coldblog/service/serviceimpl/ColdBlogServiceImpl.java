@@ -27,4 +27,10 @@ public class ColdBlogServiceImpl implements ColdBlogService {
     public Post save(Post post) { //Salva o Post
         return coldBlogRepository.save(post);
     }
+
+    @Override
+    public void delete(Post post) {
+        coldBlogRepository.delete(post);
+    }
+
 }

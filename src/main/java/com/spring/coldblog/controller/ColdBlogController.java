@@ -5,6 +5,7 @@ import com.spring.coldblog.service.ColdBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +35,22 @@ public class ColdBlogController {
         Post post = coldBlogService.findbyid(id);
         mv.addObject("post", post); //Temos acesso aos Post do banco de dados
         return mv;
+    }
+
+    @RequestMapping(value = "/postdel", method = RequestMethod.GET)
+    public ModelAndView getPostDel() {
+        ModelAndView mv = new ModelAndView("postDel");
+        List<Post> posts = coldBlogService.findAll();
+        mv.addObject("posts", posts); //Temos acesso aos Post do banco de dados
+        return mv;
+    }
+
+    @RequestMapping("/postdel/{id}")
+    public String postDel(long id, RedirectAttributes attributes){
+        Post post = coldBlogService.findbyid(id);
+        coldBlogService.delete(post);
+        attributes.addFlashAttribute("mensagem","Post excluído com sucesso!");
+        return "redirect:/postdel";
     }
 
     @RequestMapping(value = "/newpost", method = RequestMethod.GET)

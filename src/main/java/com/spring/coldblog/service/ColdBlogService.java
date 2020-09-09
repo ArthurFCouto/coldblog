@@ -7,4 +7,5 @@ public interface ColdBlogService {
     List<Post> findAll();
     Post findbyid(long id);
     Post save(Post post);
+    void delete(Post post);
 }
