@@ -17,29 +17,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Início <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/posts">Início <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Posts</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Autores
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                        <a class="nav-link" href="/posts">Posts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Saiba mais</a>
+                        <a class="nav-link disabled" href="/posts" tabindex="-1" aria-disabled="true">Saiba mais</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button> &nbsp;
+                    <a href="/newpost" class="btn btn-primary" role="button">New</a>
                 </form>
             </div>
         </nav>
@@ -57,7 +47,9 @@
                         <span th:text="${post.autor}"></span> <!-- Buscando no post a informação na coluna autor -->
                         <span th:text="${post.data}"></span> <!-- Buscando no post a informação na coluna data -->
                     </p>
-                    <a href="#">
+                    <a th:href="${(#mvc.url('CBC#getPostDetails').arg(0, post.id)).build()}"> <!-- link para detalhes do post -->
+                        <!-- Para transformar o titulo em link, primeiro a gente converte o mvc em url, passa a sigla da página de controle: ColdBlogController (CBC)
+                         Passa o # método que é para chamar, ponto o argumento 0 mais o id do post, e depois manda construir com o build-->
                         <h4 class="card-title" style="font-weight:bold; color:black;padding-top:5px;"><span th:text="${post.titulo}"></span></h4><!-- Buscando no post a informação na coluna titulo -->
                     </a>
                      <p class="card-text"><span th:utext="${#strings.abbreviate(post.text,40)}"></span></p> <!-- Buscando no post a informação na coluna texto, mas abreviando e mostrando apenas os 40 primeiros caracteres -->
