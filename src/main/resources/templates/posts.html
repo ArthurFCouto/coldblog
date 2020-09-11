@@ -1,63 +1,54 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns:th="http://thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Posts</title>
     <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">ColdBlog</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/posts">Início <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/posts">Posts</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="/posts" tabindex="-1" aria-disabled="true">Saiba mais</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button> &nbsp;
-                    <a href="/newpost" class="btn btn-primary" role="button">New</a>&nbsp;
-                    <a href="/postdel" class="btn btn-primary" role="button">Delete</a>
-                </form>
-            </div>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/posts">ColdBlog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/posts">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/postdel">Apagar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/newpost">Add</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<section>
+    <div class="container" style="width: 60%; padding-bottom: 30px">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="background-color: wrhite; padding-left: 0px">
+                <li class="breadcrumb-item active" aria-current="page">Post</li>
+            </ol>
         </nav>
-    </header>
-    <section>
-        <div class="container" style="width: 60%; padding-bottom: 30px">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb" style="background-color: wrhite; padding-left: 0px">
-                    <li class="breadcrumb-item active" aria-current="page">Posts</li>
-                </ol>
-            </nav>
-            <div class="card shadow-sm bg-white rounded" style="margin-top:20px;" th:each="post : ${posts}"> <!-- Um for percorrendo a lista de posts, onde para cada post será criado um card-->
-                <div class="card-body">
-                    <p class="card-subtitle mb-2 text-muted" style="font-size:0.8rem;">
-                        <span th:text="${post.autor}"></span> <!-- Buscando no post a informação na coluna autor -->
-                        <span th:text="${post.data}"></span> <!-- Buscando no post a informação na coluna data -->
-                    </p>
-                    <a th:href="${(#mvc.url('CBC#getPostDetails').arg(0, post.id)).build()}"> <!-- link para detalhes do post -->
-                        <!-- Para transformar o titulo em link, primeiro a gente converte o mvc em url, passa a sigla da página de controle: ColdBlogController (CBC)
-                         Passa o # método que é para chamar, ponto o argumento 0 mais o id do post, e depois manda construir com o build-->
-                        <h4 class="card-title" style="font-weight:bold; color:black;padding-top:5px;"><span th:text="${post.titulo}"></span></h4><!-- Buscando no post a informação na coluna titulo -->
-                    </a>
-                     <p class="card-text"><span th:utext="${#strings.abbreviate(post.text,40)}"></span></p> <!-- Buscando no post a informação na coluna texto, mas abreviando e mostrando apenas os 40 primeiros caracteres -->
-                </div>
+        <div class="card" style="margin-top:20px;" th:each="post : ${posts}">
+            <div class="card-header">
+                <span th:text="${post.autor}"></span>
+                <span th:text="${post.data}"></span>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"><span th:text="${post.titulo}"></span></h5>
+                <p class="card-text"><span th:utext="${#strings.abbreviate(post.text,50)} "></span></p>
+                <a th:href="${(#mvc.url('CBC#getPostDetails').arg(0, post.id)).build()}" class="btn btn-primary btn-sm">Detalhes</a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 </body>
 </html>
